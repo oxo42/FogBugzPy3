@@ -5,6 +5,7 @@ Note: Ported from https://developers.kilnhg.com/Code/FogBugz/Group/FogBugzPy/Fil
 
 This Python API is simply a wrapper around the FogBugz API, with some help from Leonard Richardson's BeautifulSoup_ and
 the magic of Python's ``__getattr__()``.
+
 .. _BeautifulSoup:  http://www.crummy.com/software/BeautifulSoup/
 
 Getting Started:
@@ -19,6 +20,7 @@ To use the FogBugz API, just put the file fogbugz.py somewhere on your Python pa
 A Quick Example:
 
 .. code-block:: python
+
  >>> from fogbugz import FogBugz
  >>> fb = FogBugz("http://example.fogbugz.com/") # URL is to your FogBugz install
  >>> fb.logon("logon@example.com", "password")
