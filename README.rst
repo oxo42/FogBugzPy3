@@ -1,7 +1,7 @@
 Python FogBugz API Wrapper
 ==========================
 
-Note: Ported from https://developers.kilnhg.com/Code/FogBugz/Group/FogBugzPy/Files?nr=
+Note: Ported from https://developers.kilnhg.com/Code/FogBugz/Group/FogBugzPy
 
 This Python API is simply a wrapper around the FogBugz API, with some help from Leonard Richardson's BeautifulSoup_ and
 the magic of Python's ``__getattr__()``.

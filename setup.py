@@ -1,9 +1,20 @@
 from textwrap import dedent
+from os import path
 
-setup(name='fogbugz',
-      version='0.9.6',
-      py_modules=['fogbugz'],
-      license=dedent("""\
+from setuptools import setup
+
+
+here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the relevant file
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
+
+setup(
+    name='fogbugz3',
+    version='0.9.6',
+    py_modules=['fogbugz3'],
+    license=dedent("""\
         Copyright (c) 2011, Fog Creek Software, Inc.
         All rights reserved.
 
@@ -27,88 +38,31 @@ setup(name='fogbugz',
         (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
         SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         """),
-      description='Python library for interacting with the FogBugz API',
-      long_description=dedent("""\
-        Python FogBugz API Wrapper
-        --------------------------
-
-        This Python API is simply a wrapper around the FogBugz API, with some help from Leonard Richardson's
-        BeautifulSoup (http://www.crummy.com/software/BeautifulSoup/) and the magic of Python's __getattr__().
-
-        Getting Started:
-        ----------------
-        To use the FogBugz API, install the package either by downloading the source and running
-
-          $ python setup.py install
-
-        or by using pip
-
-          $ pip install fogbugz
-
-        A Quick Example:
-        ----------------
-
-        ::
-
-          >>> from fogbugz import FogBugz
-          >>> fb = FogBugz("http://example.fogbugz.com/") # URL is to your FogBugz install
-          >>> fb.logon("logon@example.com", "password")
-          >>> resp = fb.search(q="assignedto:tyler") # All calls take named parameters, per the API
-          >>> resp # Responses are BeautifulSoup objects of the response XML.
-          <response>
-            <cases count="2">
-              <case ixbug="1" operations="edit,assign,resolve,email,remind"></case>
-              <case ixbug="2" operations="edit,spam,assign,resolve,reply,forward,remind"></case>
-            </cases>
-          </response>
-          >>> # You shouldn't need to know too much about BeautifulSoup, but the documentation can be found here:
-          >>> # http://www.crummy.com/software/BeautifulSoup/documentation.html
-          >>> for case in resp.cases.childGenerator(): # One way to access the cases
-          ...     print case['ixbug']
-          ...
-          1
-          2
-          >>> for case in resp.findAll('case'): # Another way to access the cases
-          ...     print case['operations']
-          ...
-          edit,assign,resolve,email,remind
-          edit,spam,assign,resolve,reply,forward,remind
-          >>> resp = fb.edit(ixbug=1, sEvent="Edit from the API") # Note the named parameters
-          >>> resp
-          <response><case ixbug="1" operations="edit,assign,resolve,email,remind"></case></response>
-          >>> # To upload files, just pass a `Files` parameter that is a dictionary of filename and file handle. New in 0.9.2.
-          >>> resp = fb.edit(ixbug=2, sEvent="Add a file from the API", Files={'filename': open('filename', 'r')}) # Note the named parameters
-          >>> resp
-          <response><case ixbug="2" operations="edit,assign,resolve,email,remind"></case></response>
-
-        Note that, per API v5.0, all data between tags, such as the token, is now wrapped in CDATA.  BeautifulSoup's implementation of CData generally allows for it to be treated as a string, except for one important case: CData.__str__() (a.k.a. str(CData)) returns the full text, including the CDATA wrapper (e.g. "<![CDATA[foo]]>").  To avoid accidentally including the CDATA tage, use CData.encode('utf-8')
-
-        For more info on the API:
-        http://our.fogbugz.com/help/topics/advanced/API.html
-        """),
-      author='Fog Creek Software',
-      author_email='customer-service@fogcreek.com',
-      maintainer='Fog Creek Software',
-      maintainer_email='customer-service@fogcreek.com',
-      url='https://developers.kilnhg.com/Repo/FogBugz/Group/FogBugzPy',
-      download_url='https://developers.kilnhg.com/Repo/FogBugz/Group/FogBugzPy',
-      requires='BeautifulSoup4',
-      classifiers=[
-          'Development Status :: 5 - Production/Stable',
-          'Intended Audience :: Developers',
-          'Natural Language :: English',
-          'Operating System :: MacOS :: MacOS X',
-          'Operating System :: Microsoft :: Windows',
-          'Operating System :: POSIX',
-          'Operating System :: POSIX :: BSD',
-          'Operating System :: POSIX :: Linux',
-          'Programming Language :: Python',
-          'Topic :: Internet :: WWW/HTTP',
-          'Topic :: Software Development',
-          'Topic :: Software Development :: Bug Tracking',
-          'Topic :: Software Development :: Libraries',
-          'Topic :: Software Development :: Libraries :: Python Modules',
-          'Topic :: Software Development :: Version Control',
-          'Topic :: Utilities',
-      ],
+    description='Python3 library for interacting with the FogBugz API',
+    long_description=long_description,
+    author='Fog Creek Software',
+    author_email='customer-service@fogcreek.com',
+    maintainer='Fog Creek Software',
+    maintainer_email='customer-service@fogcreek.com',
+    url='https://developers.kilnhg.com/Repo/FogBugz/Group/FogBugzPy',
+    download_url='https://developers.kilnhg.com/Repo/FogBugz/Group/FogBugzPy',
+    requires='BeautifulSoup4',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Natural Language :: English',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Operating System :: POSIX :: BSD',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3',
+        'Topic :: Internet :: WWW/HTTP',
+        'Topic :: Software Development',
+        'Topic :: Software Development :: Bug Tracking',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Software Development :: Version Control',
+        'Topic :: Utilities',
+    ],
 )
